@@ -1,7 +1,24 @@
 const {DataTypes} = require('sequelize');
-module.exports = (sequelize, Sequelize) => {
-    const User = require('./user.model')
-    const user = User(sequelize, Sequelize)
+module.exports = (sequelize) => {
+    const User = sequelize.define('User', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        discordId: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        userName: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }
+    }, {});
     const Debt = sequelize.define('Debt', {
         id: {
             type: DataTypes.INTEGER,
@@ -19,14 +36,14 @@ module.exports = (sequelize, Sequelize) => {
         debtorId: {
             type: DataTypes.INTEGER,
             references: {
-                model: user,
+                model: User,
                 key: 'id'
             }
         },
         lenderId: {
             type: DataTypes.INTEGER,
             references: {
-                model: user,
+                model: User,
                 key: 'id'
             }
         },
@@ -35,7 +52,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         }
     }, {timestamps: true});
-    return Debt;
+    return {User: User, Debt: Debt};
 }
 
 

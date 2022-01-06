@@ -13,26 +13,16 @@ const sequelize = new Sequelize(
         host: dbConfig.host,
         port: dbConfig.port,
         dialect: dbConfig.dialect,
-        // define: {
-        //     freezeTableName: true,
-        // },
-        // pool: {
-        // max: 5,
-        // min: 0,
-        // acquire: 30000,
-        // idle: 10000,
-        // },
     },
 )
 
-const UserSeq = require('../models/user.model');
-const DebtSeq = require('../models/debt.model');
+const ConstructModels = require('./models');
 
-const User = UserSeq(sequelize, Sequelize)
-db[User.name] = User
-const Debt = DebtSeq(sequelize, Sequelize)
-db[Debt.name] = Debt
+const Models = ConstructModels(sequelize)
 
+
+db[Models.User.name] = Models.User
+db[Models.Debt.name] = Models.Debt
 
 
 // Apply associations
@@ -44,7 +34,6 @@ Object.keys(db).forEach(key => {
 
 db.sequelize = sequelize
 db.Sequelize = Sequelize
-db.User=User
-db.Debt=Debt
+db.Models = Models
 
 module.exports = db;
