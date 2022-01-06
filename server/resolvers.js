@@ -1,12 +1,13 @@
-const db=require('../database/database')
-const User=db.Models.User;
-const Debt=db.Models.Debt;
+const db = require('../database/database')
+const User = db.Models.User;
+const Debt = db.Models.Debt;
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const resolvers = {
         Query: {
             // books: [Book]
             async user(root, {id}) {
-
                 return User.findByPk(id);
             },
             async userUnpaidDebt(root, {id}) {
@@ -20,8 +21,14 @@ const resolvers = {
             }
         },
         Mutation: {
-            async createUser(root, {name, password, discordId}) {
-                return User.create({name: name, password: password, lastName: "Doe"});
+            async createUser(root, {userName, password, discordId}) {
+                bcrypt.genSalt(saltRounds, function (err, salt) {
+                    bcrypt.hash(password, salt, function (err, hash) {
+                        console.log(hash)
+                        return User.create({userName: userName, password: hash, discordId: discordId});
+                    });
+                });
+
             },
             async createDebt(root, {title, description, debtorId, lenderId}) {
                 if (debtorId === lenderId) {
@@ -42,4 +49,4 @@ const resolvers = {
         }
     }
 ;
-module.exports=resolvers;
+module.exports = resolvers;

@@ -27,7 +27,7 @@ const typeDefs = gql`
         userUnpaidDebt(id: Int!):[Debt!]!
     }
     type Mutation{
-        createUser(name: String!, password: String!, discordId: String):User!
+        createUser(userName: String!, password: String!, discordId: String):User!
         createDebt(title: String!, description: String!, debtorId:Int!, lenderId:Int!):Debt!
     }
 `;
