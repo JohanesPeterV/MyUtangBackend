@@ -1,0 +1,23 @@
+{
+  "name": "myutangbackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^3.6.1",
+    "graphql": "^16.2.0",
+    "mysql2": "^2.3.3",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.12.5"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4"
+  }
+}
