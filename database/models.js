@@ -47,6 +47,10 @@ module.exports = (sequelize) => {
                 key: 'id'
             }
         },
+        value: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
         paid: {
             type: DataTypes.BOOLEAN,
             allowNull: false

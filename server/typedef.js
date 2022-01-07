@@ -1,5 +1,3 @@
-
-
 const {gql} = require('apollo-server');
 const typeDefs = gql`
     type Book {
@@ -19,16 +17,18 @@ const typeDefs = gql`
         description: String!
         debtorId: Int!
         lenderId: Int!
+        value: Int!
         paid: Boolean!
     }
     type Query{
         books: [Book]
-        user(id: Int!): User!
-        userUnpaidDebt(id: Int!):[Debt!]!
+        user(id: ID!): User!
+        userUnpaidDebt(id: ID!):[Debt!]!
+        debtGrandTotal(firstUserId: ID!, secondUserId:ID!):Int!
     }
     type Mutation{
         createUser(userName: String!, password: String!, discordId: String):User!
-        createDebt(title: String!, description: String!, debtorId:Int!, lenderId:Int!):Debt!
+        createDebt(title: String!, description: String!, debtorId:ID!, lenderId:ID!,value: Int!):Debt!
     }
 `;
-module.exports=typeDefs;
+module.exports = typeDefs;
