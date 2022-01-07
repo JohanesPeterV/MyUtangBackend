@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 
 const saltRounds = 10;
 var Utils = {
+    bcrypt: bcrypt,
     bcryptPassword: function (password) {
         return new Promise(
             resolve => {
