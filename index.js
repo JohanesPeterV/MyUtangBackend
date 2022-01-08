@@ -14,7 +14,11 @@ const Debt = db.Models.Debt
 const User = db.Models.User
 const resolvers = require('./server/resolvers',);
 const server = new ApolloServer({
-    typeDefs, resolvers, playground: true, introspection: true,
+    typeDefs,
+    resolvers,
+    debug: true,
+    playground: true,
+    introspection: true,
 });
 
 server.listen(process.env.PORT).then(({url}) => {
