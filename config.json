@@ -1,9 +1,9 @@
 {
   "Database": {
-    "host": "localhost",
-    "user": "postgres",
-    "password": "passcode99",
-    "name": "myutang",
+    "host": "ec2-3-212-172-25.compute-1.amazonaws.com",
+    "user": "cnhoqfhlfjsyvx",
+    "password": "26b6238f534bf41e375b92007abe65b14a7b6ad053e30099858ac3a8ae778eb4",
+    "name": "d6kfds3bchedoj",
     "dialect": "postgres",
     "port": "5432",
     "pool": {
