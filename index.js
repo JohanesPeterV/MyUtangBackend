@@ -13,7 +13,9 @@ const typeDefs = require('./server/typedef');
 const Debt = db.Models.Debt
 const User = db.Models.User
 const resolvers = require('./server/resolvers',);
-const server = new ApolloServer({typeDefs, resolvers,introspection: true});
+const server = new ApolloServer({
+    typeDefs, resolvers, playground: true, introspection: true,
+});
 
 server.listen(process.env.PORT).then(({url}) => {
     console.log(`🚀  Server ready at ${url}`);
