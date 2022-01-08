@@ -21,12 +21,6 @@ const sequelize = new Sequelize(
         }
     },
 );
-sequelize.then(() => {
-        console.log("Connections has been established successfully.")
-    }).catch((err)=>{
-        console.log("Unable to connect to the database:",err)
-})
-
 const ConstructModels = require('./models');
 
 const Models = ConstructModels(sequelize)
