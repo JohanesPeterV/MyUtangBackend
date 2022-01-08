@@ -2,8 +2,9 @@
 
 const db = require('./database/database');
 
-import { ApolloServerPluginLandingPageLocalDefault
-} from "apollo-server-core";
+const apolloCore=require("apollo-server-core");
+//ApolloServerPluginLandingPageLocalDefault
+
 
 (async () => {
     await db.sequelize.sync({alter: true});
@@ -23,7 +24,7 @@ const server = new ApolloServer({
     playground: true,
     introspection: true,
     plugins:[
-        ApolloServerPluginLandingPageLocalDefault()
+        apolloCore.ApolloServerPluginLandingPageLocalDefault()
     ]
 });
 
