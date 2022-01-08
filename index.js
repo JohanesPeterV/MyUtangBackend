@@ -2,6 +2,9 @@
 
 const db = require('./database/database');
 
+import { ApolloServerPluginLandingPageLocalDefault
+} from "apollo-server-core";
+
 (async () => {
     await db.sequelize.sync({alter: true});
 })();
@@ -19,6 +22,9 @@ const server = new ApolloServer({
     debug: true,
     playground: true,
     introspection: true,
+    plugins:[
+        ApolloServerPluginLandingPageLocalDefault()
+    ]
 });
 
 server.listen(process.env.PORT).then(({url}) => {
