@@ -17,6 +17,6 @@ const User = db.Models.User
 const resolvers = require('./server/resolvers');
 
 const server = new ApolloServer({typeDefs, resolvers});
-server.listen().then(({url}) => {
+server.listen(process.env.PORT).then(({url}) => {
     console.log(`🚀  Server ready at ${url}`);
 });

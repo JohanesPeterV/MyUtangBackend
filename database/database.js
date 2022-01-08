@@ -25,7 +25,6 @@ const ConstructModels = require('./models');
 
 const Models = ConstructModels(sequelize)
 
-
 db[Models.User.name] = Models.User
 db[Models.Debt.name] = Models.Debt
 
