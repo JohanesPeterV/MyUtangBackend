@@ -13,8 +13,19 @@ const sequelize = new Sequelize(
         host: dbConfig.host,
         port: dbConfig.port,
         dialect: dbConfig.dialect,
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+            }
+        }
     },
-)
+);
+sequelize.then(() => {
+        console.log("Connections has been established successfully.")
+    }).catch((err)=>{
+        console.log("Unable to connect to the database:",err)
+})
 
 const ConstructModels = require('./models');
 
