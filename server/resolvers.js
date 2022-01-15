@@ -20,8 +20,12 @@ class ValidationError {
 
 const resolvers = {
         Query: {
+
             async user(root, {id}) {
                 return User.findByPk(id);
+            },
+            async getUser(root, {token}) {
+
             },
             async userUnpaidDebt(root, {id}) {
                 return Debt.findAll(
@@ -93,7 +97,8 @@ const resolvers = {
             async register(root, {userName, password}) {
                 let hash = await Utils.bcryptPassword(password);
                 const currUser = await User.create({userName: userName, password: hash, discordId: null});
-                return {token: jwt.sign(currUser.dataValues, "ZIGGYZEORDYGAEXELCSAZABRIZKIEZIGGYGAEXELCSAZABRIZKIEZEORDY")}
+                return {token: jwt.sign(currUser.dataValues, ENV['JWT_SECRET'])}
+
             },
             async login(root, {userName, password}) {
                 const currUser = await User.findOne(
@@ -106,7 +111,7 @@ const resolvers = {
                 if (!currUser) throw new Error(new ValidationError('LoginFail', 'Wrong username').toJson());
                 if (Utils.bcrypt.compareSync(password, currUser.dataValues.password)) {
                     return {
-                        token: jwt.sign(currUser.dataValues, "ZIGGYZEORDYGAEXELCSAZABRIZKIEZIGGYGAEXELCSAZABRIZKIEZEORDY"),
+                        token: jwt.sign(currUser.dataValues, ENV['JWT_SECRET']),
                     };
                 } else {
                     throw new Error(new ValidationError('LoginFail', 'Wrong password').toJson());
