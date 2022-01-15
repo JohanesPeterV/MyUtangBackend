@@ -17,8 +17,9 @@ const typeDefs = require('./server/typedef');
 const Debt = db.Models.Debt
 const User = db.Models.User
 const resolvers = require('./server/resolvers',);
+const jwt = require('jsonwebtoken');
 
-async function getUser(root, {token}) {
+function getUser(root, {token}) {
     return jwt.verify(token, process.env.JWT_SECRET);
 };
 const server = new ApolloServer({
