@@ -17,8 +17,8 @@ const typeDefs = gql`
     }
     type Query{
         user: User!
-        userUnpaidDebt:[Debt!]!
-        userUnpaidLendedDebt:[Debt!]!
+        unpaidDebts:[Debt!]!
+        unpaidLendedDebts:[Debt!]!
         debtGrandTotal(firstUserId: ID!, secondUserId:ID!):Int!
     }
     type AuthPayLoad{
