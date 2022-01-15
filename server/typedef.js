@@ -28,7 +28,7 @@ const typeDefs = gql`
         createDebt(title: String!, description: String!, debtorId:ID!,amount: Int!):Debt!
         register(userName: String!, password: String!): AuthPayLoad!
         login(userName: String!, password: String!): AuthPayLoad!
-        payAllDebts:Debt!
+        payAllDebts:[Debt!]!
     }
 `;
 module.exports = typeDefs;

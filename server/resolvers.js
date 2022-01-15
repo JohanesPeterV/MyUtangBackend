@@ -16,7 +16,7 @@ class MyUtangError extends ApolloError.ApolloError {
 
 const resolvers = {
         Query: {
-            async currUser(root, context) {
+            async user(root, context) {
                 if (!context.user) return null;
                 return context.user;
             },
