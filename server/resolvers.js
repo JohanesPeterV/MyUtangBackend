@@ -110,13 +110,13 @@ const resolvers = {
                         }
                     })
                 );
-                if (!currUser) throw new Error(new ValidationError('LoginFail', 'Wrong username').toJson());
+                if (!currUser) throw new Error(new MyUtangError('LoginFail', 'Wrong username').toJson());
                 if (Utils.bcrypt.compareSync(password, currUser.dataValues.password)) {
                     return {
                         token: jwt.sign(currUser.dataValues, process.env.JWT_SECRET),
                     };
                 } else {
-                    throw new Error(new ValidationError('LoginFail', 'Wrong password').toJson());
+                    throw new Error(new MyUtangError('LoginFail', 'Wrong password').toJson());
                 }
             },
 
