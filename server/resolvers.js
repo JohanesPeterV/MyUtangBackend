@@ -24,9 +24,6 @@ const resolvers = {
             async user(root, {id}) {
                 return User.findByPk(id);
             },
-            async getUser(root, {token}) {
-                return jwt.verify(token, process.env.JWT_SECRET);
-            },
             async userUnpaidDebt(root, {id}) {
                 return Debt.findAll(
                     {

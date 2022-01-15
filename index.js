@@ -18,19 +18,20 @@ const Debt = db.Models.Debt
 const User = db.Models.User
 const resolvers = require('./server/resolvers',);
 const jwt = require('jsonwebtoken');
-
-function getUser(token) {
-    return jwt.verify(token, process.env.JWT_SECRET);
-};
 const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: ({req}) => {
-        const token = req.headers.authorization || '';
-        console.log(token);
-        const user = getUser(token)
-        print(user);
-        // return {user};
+        const auth=req.headers.authorization;
+        if(auth){
+            const token = auth.replace('Bearer ','') ;
+            console.log(token);
+            const user = jwt.verify(token,process.env.JWT_SECRET);
+            print(user);
+
+        }
+        return null;
+
     },
     debug: true,
     playground: true,
