@@ -3,36 +3,40 @@ const User = db.Models.User;
 const Debt = db.Models.Debt;
 const Utils = require('./utils');
 const jwt = require('jsonwebtoken');
+import {ApolloError} from 'apollo-server-errors';
 
-class ValidationError {
-    constructor(title, description) {
+class MyUtangError extends ApolloError {
+    constructor(message, category) {
+        super(message, category);
         this.title = title;
         this.description = description;
     }
 
-    toJson() {
-        return {
-            'title': this.title,
-            'description': this.description,
-        }
-    }
 }
 
 const resolvers = {
         Query: {
-
-            async user(root, {id}) {
-                return User.findByPk(id);
-            },
-            async currUser(root, {id},context) {
-                if(!context.user)return null
+            async currUser(root, context) {
+                if (!context.user) return null;
                 return context.user;
             },
-            async userUnpaidDebt(root, {id}) {
+            async userUnpaidDebt(root, context) {
+                if (!context.user) throw new MyUtangError('User must be logged in', 'AuthenticationError');
                 return Debt.findAll(
                     {
                         where: {
-                            debtorId: id,
+                            debtorId: context.user.id,
+                            isPaid: false
+                        }
+                    }
+                );
+            },
+            async userUnpaidLendedDebt(root, context) {
+                if (!context.user) throw new MyUtangError('User must be logged in', 'AuthenticationError');
+                return Debt.findAll(
+                    {
+                        where: {
+                            lenderId: context.user.id,
                             isPaid: false
                         }
                     }
@@ -49,7 +53,6 @@ const resolvers = {
                     }
                 );
                 let firstUserTotal = 0;
-                // console.log(firstUserDebts);
                 firstUserDebts.forEach(
                     (debt) => {
                         firstUserTotal += debt.dataValues.value;
@@ -64,9 +67,7 @@ const resolvers = {
                         }
                     }
                 );
-
                 let secondUserTotal = 0;
-                // console.log(firstUserDebts);
                 secondUserDebts.forEach(
                     (debt) => {
                         secondUserTotal += debt.dataValues.value;
@@ -77,14 +78,10 @@ const resolvers = {
 
         },
         Mutation: {
-            async createUser(root, {userName, password, discordId}) {
-                let currUser = null;
-                let hash = await Utils.bcryptPassword(password);
-                return User.create({userName: userName, password: hash, discordId: discordId});
-            },
-            async createDebt(root, {title, description, debtorId, lenderId, value}) {
-                if (debtorId === lenderId) {
-                    throw new Error(new ValidationError("IllegalInput", "Debtor and lender could not be the same person").toJson())
+            async createDebt(root, {title, description, debtorId, value}, context) {
+                if (!context.user) throw new MyUtangError('User must be logged in', 'AuthenticationError');
+                if (debtorId === context.user.id) {
+                    throw new MyUtangError('User should not create debt to him/herself', 'ValidationError');
                 }
                 return Debt.create({
                     title: title,
@@ -117,19 +114,21 @@ const resolvers = {
                 } else {
                     throw new Error(new ValidationError('LoginFail', 'Wrong password').toJson());
                 }
-            }
+            },
 
             // signUp(userName: String!, password: String!): AuthPayLoad!
             // payAllDebts(userId: Int!):[Debt!]!
             // payAllDebtsBetween(debtorId: Int!, lenderId:Int!):[Debt!]!
-            // async payAllDebts(root, {userId}) {
-            //     Debt.update({paid: true}, {
-            //             where:
-            //                 {
-            //                 debtorId:userId
-            //             }
-            //         });
-            // },
+            async payAllDebts(root, context) {
+                if (!context.user) throw new MyUtangError('User must be logged in', 'AuthenticationError');
+                return Debt.update({paid: true}, {
+                        where:
+                            {
+                                debtorId: context.user.id
+                            }
+                    },
+                );
+            },
         }
     }
 ;

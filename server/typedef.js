@@ -16,19 +16,19 @@ const typeDefs = gql`
         isPaid: Boolean!
     }
     type Query{
-        currUser:User
-        user(id: ID!): User!
-        userUnpaidDebt(id: ID!):[Debt!]!
+        user: User!
+        userUnpaidDebt:[Debt!]!
+        userUnpaidLendedDebt:[Debt!]!
         debtGrandTotal(firstUserId: ID!, secondUserId:ID!):Int!
     }
     type AuthPayLoad{
         token: String!
     }
     type Mutation{
-        createUser(userName: String!, password: String!, discordId: String):User!
-        createDebt(title: String!, description: String!, debtorId:ID!, lenderId:ID!,amount: Int!):Debt!
+        createDebt(title: String!, description: String!, debtorId:ID!,amount: Int!):Debt!
         register(userName: String!, password: String!): AuthPayLoad!
         login(userName: String!, password: String!): AuthPayLoad!
+        payAllDebts:Debt!
     }
 `;
 module.exports = typeDefs;

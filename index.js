@@ -3,7 +3,6 @@
 const db = require('./database/database');
 
 const apolloCore = require("apollo-server-core");
-//ApolloServerPluginLandingPageLocalDefault
 
 
 (async () => {
@@ -28,7 +27,6 @@ const server = new ApolloServer({
             const token = auth.replace('Bearer ', '');
             console.log(token);
             user = jwt.verify(token, process.env.JWT_SECRET);
-
         }
         return {user};
     },
