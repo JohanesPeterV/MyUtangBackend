@@ -16,6 +16,7 @@ const typeDefs = gql`
         isPaid: Boolean!
     }
     type Query{
+        currUser:User
         user(id: ID!): User!
         userUnpaidDebt(id: ID!):[Debt!]!
         debtGrandTotal(firstUserId: ID!, secondUserId:ID!):Int!

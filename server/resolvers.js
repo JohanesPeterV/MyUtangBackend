@@ -24,6 +24,10 @@ const resolvers = {
             async user(root, {id}) {
                 return User.findByPk(id);
             },
+            async currUser(root, {id},context) {
+                if(!context.user)return null
+                return context.user;
+            },
             async userUnpaidDebt(root, {id}) {
                 return Debt.findAll(
                     {

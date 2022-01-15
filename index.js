@@ -22,17 +22,13 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: ({req}) => {
-        const auth=req.headers.authorization;
-        if(auth){
-            const token = auth.replace('Bearer ','') ;
+        const auth = req.headers.authorization;
+        if (auth) {
+            const token = auth.replace('Bearer ', '');
             console.log(token);
-            const user = jwt.verify(token,process.env.JWT_SECRET);
-            console.log('disini');
-            console.log(user);
-
+            const user = jwt.verify(token, process.env.JWT_SECRET);
         }
         return null;
-
     },
     debug: true,
     playground: true,
