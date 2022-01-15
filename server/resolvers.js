@@ -20,7 +20,6 @@ class ValidationError {
 
 const resolvers = {
         Query: {
-            // books: [Book]
             async user(root, {id}) {
                 return User.findByPk(id);
             },

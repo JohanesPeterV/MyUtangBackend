@@ -20,6 +20,12 @@ const resolvers = require('./server/resolvers',);
 const server = new ApolloServer({
     typeDefs,
     resolvers,
+    context:({req}) => {
+        const token=req.headers.authorization||'';
+        console.log(token);
+        // const user=getUser(token)
+
+    },
     debug: true,
     playground: true,
     introspection: true,
