@@ -25,7 +25,7 @@ const resolvers = {
                 return User.findByPk(id);
             },
             async getUser(root, {token}) {
-
+                return jwt.verify(token, process.env.JWT_SECRET);
             },
             async userUnpaidDebt(root, {id}) {
                 return Debt.findAll(
@@ -117,10 +117,10 @@ const resolvers = {
                     throw new Error(new ValidationError('LoginFail', 'Wrong password').toJson());
                 }
             }
+
             // signUp(userName: String!, password: String!): AuthPayLoad!
             // payAllDebts(userId: Int!):[Debt!]!
             // payAllDebtsBetween(debtorId: Int!, lenderId:Int!):[Debt!]!
-
             // async payAllDebts(root, {userId}) {
             //     Debt.update({paid: true}, {
             //             where:
