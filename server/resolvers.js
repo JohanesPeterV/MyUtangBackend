@@ -8,7 +8,7 @@ const ApolloError = require('apollo-server-errors');
 class MyUtangError extends ApolloError.ApolloError {
     constructor(message, category) {
         super(message, category);
-        Object.defineProperty(this,'name',{value:'MyError'});
+        Object.defineProperty(this, 'name', {value: 'MyError'});
     }
 
 }
@@ -96,7 +96,8 @@ const resolvers = {
                 });
             },
             async register(root, {
-                Name, password}) {
+                userName, password
+            }) {
                 let hash = await Utils.bcryptPassword(password);
                 const currUser = await User.create({userName: userName, password: hash, discordId: null});
                 return {token: jwt.sign(currUser.dataValues, process.env.JWT_SECRET)}
@@ -110,13 +111,13 @@ const resolvers = {
                         }
                     })
                 );
-                if (!currUser) throw new Error(new MyUtangError('LoginFail', 'Wrong username').toJson());
+                if (!currUser) throw new Error(new MyUtangError('LoginFail', 'Wrong username'));
                 if (Utils.bcrypt.compareSync(password, currUser.dataValues.password)) {
                     return {
                         token: jwt.sign(currUser.dataValues, process.env.JWT_SECRET),
                     };
                 } else {
-                    throw new Error(new MyUtangError('LoginFail', 'Wrong password').toJson());
+                    throw new Error(new MyUtangError('LoginFail', 'Wrong password'));
                 }
             },
 
