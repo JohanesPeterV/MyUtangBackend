@@ -27,7 +27,8 @@ const server = new ApolloServer({
             const token = auth.replace('Bearer ','') ;
             console.log(token);
             const user = jwt.verify(token,process.env.JWT_SECRET);
-            print(user);
+            console.log('disini');
+            console.log(user);
 
         }
         return null;
