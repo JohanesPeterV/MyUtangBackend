@@ -47,11 +47,11 @@ module.exports = (sequelize) => {
                 key: 'id'
             }
         },
-        value: {
+        amount: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        paid: {
+        isPaid: {
             type: DataTypes.BOOLEAN,
             allowNull: false
         }

@@ -24,7 +24,6 @@ const server = new ApolloServer({
         const token=req.headers.authorization||'';
         console.log(token);
         // const user=getUser(token)
-
     },
     debug: true,
     playground: true,

@@ -1,19 +1,19 @@
 const {gql} = require('apollo-server');
 const typeDefs = gql`
     type User{
-        id: Int!
+        id: ID!
         discordId: String
         userName: String!
         password: String!
     }
     type Debt{
-        id: Int!
+        id: ID!
         title: String!
         description: String!
-        debtorId: Int!
-        lenderId: Int!
-        value: Int!
-        paid: Boolean!
+        debtorId: ID!
+        lenderId: ID    !
+        amount: Int!
+        isPaid: Boolean!
     }
     type Query{
         user(id: ID!): User!
@@ -25,7 +25,7 @@ const typeDefs = gql`
     }
     type Mutation{
         createUser(userName: String!, password: String!, discordId: String):User!
-        createDebt(title: String!, description: String!, debtorId:ID!, lenderId:ID!,value: Int!):Debt!
+        createDebt(title: String!, description: String!, debtorId:ID!, lenderId:ID!,amount: Int!):Debt!
         register(userName: String!, password: String!): AuthPayLoad!
         login(userName: String!, password: String!): AuthPayLoad!
     }
