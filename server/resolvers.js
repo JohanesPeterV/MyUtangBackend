@@ -5,7 +5,7 @@ const Utils = require('./utils');
 const jwt = require('jsonwebtoken');
 const ApolloError = require('apollo-server-errors');
 
-class MyUtangError extends ApolloError {
+class MyUtangError extends ApolloError.ApolloError {
     constructor(message, category) {
         super(message, category);
         this.title = title;
