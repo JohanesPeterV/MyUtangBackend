@@ -4,15 +4,6 @@ const db = require('./database/database');
 
 const apolloCore = require("apollo-server-core");
 
-const ApolloError = require('apollo-server-errors');
-class MyUtangError extends ApolloError.ApolloError {
-    constructor(message, category) {
-        super(message, category);
-        this.message = message;
-        this.category = category;
-    }
-
-}
 
 (async () => {
     await db.sequelize.sync({alter: true});

@@ -8,8 +8,7 @@ const ApolloError = require('apollo-server-errors');
 class MyUtangError extends ApolloError.ApolloError {
     constructor(message, category) {
         super(message, category);
-        this.title = title;
-        this.description = description;
+        Object.defineProperty(this,'name',{value:'MyError'});
     }
 
 }
@@ -96,7 +95,8 @@ const resolvers = {
                     isPaid: false
                 });
             },
-            async register(root, {userName, password}) {
+            async register(root, {
+                Name, password}) {
                 let hash = await Utils.bcryptPassword(password);
                 const currUser = await User.create({userName: userName, password: hash, discordId: null});
                 return {token: jwt.sign(currUser.dataValues, process.env.JWT_SECRET)}
