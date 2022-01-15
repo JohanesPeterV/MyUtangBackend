@@ -8,8 +8,8 @@ const ApolloError = require('apollo-server-errors');
 class MyUtangError extends ApolloError.ApolloError {
     constructor(message, category) {
         super(message, category);
-        this.title = title;
-        this.description = description;
+        this.message = message;
+        this.category = category;
     }
 
 }
