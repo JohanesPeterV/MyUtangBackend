@@ -4,6 +4,15 @@ const db = require('./database/database');
 
 const apolloCore = require("apollo-server-core");
 
+const ApolloError = require('apollo-server-errors');
+class MyUtangError extends ApolloError.ApolloError {
+    constructor(message, category) {
+        super(message, category);
+        this.title = title;
+        this.description = description;
+    }
+
+}
 
 (async () => {
     await db.sequelize.sync({alter: true});
@@ -25,7 +34,7 @@ const server = new ApolloServer({
         let user = null;
         if (auth) {
             const token = auth.replace('Bearer ', '');
-            console.log(token);
+
             user = jwt.verify(token, process.env.JWT_SECRET);
         }
         return {user};
