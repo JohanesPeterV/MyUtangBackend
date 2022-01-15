@@ -17,6 +17,7 @@ const typeDefs = gql`
     }
     type Query{
         user: User!
+        users:[User!]!
         unpaidDebts:[Debt!]!
         unpaidLendedDebts:[Debt!]!
         debtGrandTotal(firstUserId: ID!, secondUserId:ID!):Int!

@@ -20,6 +20,10 @@ const resolvers = {
                 if (!context.user) return null;
                 return context.user;
             },
+            async users(root, context) {
+                if (!context.user) throw new MyUtangError('User must be logged in', 'AuthenticationError');
+                return User.findAll();
+            },
             async unpaidDebts(root, context) {
                 if (!context.user) throw new MyUtangError('User must be logged in', 'AuthenticationError');
                 return Debt.findAll(
