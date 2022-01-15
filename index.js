@@ -19,7 +19,7 @@ const User = db.Models.User
 const resolvers = require('./server/resolvers',);
 const jwt = require('jsonwebtoken');
 
-function getUser(root, {token}) {
+function getUser(token) {
     return jwt.verify(token, process.env.JWT_SECRET);
 };
 const server = new ApolloServer({
