@@ -3,9 +3,9 @@ const User = db.Models.User;
 const Debt = db.Models.Debt;
 const Utils = require('./utils');
 const jwt = require('jsonwebtoken');
-const ApolloError = require('apollo-server-errors')
+const ApolloError = require('apollo-server-errors');
 
-export class MyUtangError extends ApolloError {
+class MyUtangError extends ApolloError {
     constructor(message, category) {
         super(message, category);
         this.title = title;
