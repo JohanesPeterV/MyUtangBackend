@@ -28,7 +28,7 @@ const resolvers = {
                     {
                         where: {
                             debtorId: id,
-                            paid: false
+                            isPaid: false
                         }
                     }
                 );
@@ -39,7 +39,7 @@ const resolvers = {
                         where: {
                             debtorId: firstUserId,
                             lenderId: secondUserId,
-                            paid: false
+                            isPaid: false
                         }
                     }
                 );
@@ -55,7 +55,7 @@ const resolvers = {
                         where: {
                             debtorId: secondUserId,
                             lenderId: firstUserId,
-                            paid: false
+                            isPaid: false
                         }
                     }
                 );
@@ -87,7 +87,7 @@ const resolvers = {
                     debtorId: debtorId,
                     lenderId: lenderId,
                     value: value,
-                    paid: false
+                    isPaid: false
                 });
             },
             async register(root, {userName, password}) {
