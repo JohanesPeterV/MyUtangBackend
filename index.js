@@ -23,12 +23,14 @@ const server = new ApolloServer({
     resolvers,
     context: ({req}) => {
         const auth = req.headers.authorization;
+        let user = null;
         if (auth) {
             const token = auth.replace('Bearer ', '');
             console.log(token);
-            const user = jwt.verify(token, process.env.JWT_SECRET);
+            user = jwt.verify(token, process.env.JWT_SECRET);
+
         }
-        return null;
+        return {user};
     },
     debug: true,
     playground: true,
