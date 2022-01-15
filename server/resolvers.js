@@ -15,15 +15,15 @@ class MyUtangError extends ApolloError.ApolloError {
 
 const resolvers = {
         Query: {
-            async user(root, context) {
+            async user(root, args, context) {
                 if (!context.user) return null;
                 return context.user;
             },
-            async users(root, context) {
+            async users(root, args, context) {
                 if (!context.user) throw new MyUtangError('User must be logged in', 'AuthenticationError');
                 return User.findAll();
             },
-            async unpaidDebts(root, context) {
+            async unpaidDebts(root, args, context) {
                 if (!context.user) throw new MyUtangError('User must be logged in', 'AuthenticationError');
                 return Debt.findAll(
                     {
@@ -34,7 +34,7 @@ const resolvers = {
                     }
                 );
             },
-            async unpaidLendedDebts(root, context) {
+            async unpaidLendedDebts(root, args, context) {
                 if (!context.user) throw new MyUtangError('User must be logged in', 'AuthenticationError');
                 return Debt.findAll(
                     {
@@ -124,7 +124,7 @@ const resolvers = {
             // signUp(userName: String!, password: String!): AuthPayLoad!
             // payAllDebts(userId: Int!):[Debt!]!
             // payAllDebtsBetween(debtorId: Int!, lenderId:Int!):[Debt!]!
-            async payAllDebts(root, context) {
+            async payAllDebts(root, args, context) {
                 if (!context.user) throw new MyUtangError('User must be logged in', 'AuthenticationError');
                 return Debt.update({paid: true}, {
                         where:

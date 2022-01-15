@@ -16,7 +16,7 @@ const typeDefs = gql`
         isPaid: Boolean!
     }
     type Query{
-        user: User!
+        user: User
         users:[User!]!
         unpaidDebts:[Debt!]!
         unpaidLendedDebts:[Debt!]!
