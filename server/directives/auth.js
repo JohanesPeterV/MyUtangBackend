@@ -1,25 +1,23 @@
-const apolloServer = require('apollo-server')
-const AuthenticationError = apolloServer.AuthenticationError;
-const SchemaDirectiveVisitor = apolloServer.SchemaDirectiveVisitor;
-const graphql = require('graphql');
-const defaultFieldResolver = graphql.defaultFieldResolver;
+const {mapSchema, getDirective, MapperKind} = require('@graphql-tools/utils');
+const apollo = require('apollo-server')
 
-
-class AuthDirective extends SchemaDirectiveVisitor {
-    visitFieldDefinition(field) {
-        const requiredRole = this.args.requires;
-        const originalResolve = field.resolve || defaultFieldResolver;
-        field.resolve = function (...args) {
-            const context = args[2];
-            const user = context.getUser() || {};
-
-            // const isAuthorized = user.role === requiredRole;
-            if (!user) {
-                throw new AuthenticationError(`You should be logged in`);
+function authDirectiveTransformer(schema, directiveName) {
+    return mapSchema(schema, {
+        // Executes once for each object field definition in the schema
+        [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
+            const authDirective = getDirective(schema, fieldConfig, directiveName)?.[0];
+            if (authDirective) {
+                fieldConfig.resolve = async function (source, args, context, info) {
+                    const result = await resolve(source, args, context, info);
+                    if (!context.user) {
+                        return apollo.AuthenticationError("You must be logged in to do this action")
+                    }
+                    return result;
+                }
+                return fieldConfig;
             }
-            return originalResolve.apply(this, args);
-        }
-    }
-}
+        },
 
-module.exports = AuthDirective;
+    });
+};
+module.exports = authDirectiveTransformer;

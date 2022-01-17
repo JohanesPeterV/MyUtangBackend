@@ -1,9 +1,7 @@
 "use strict";
 
 
-
-
-const AuthDirective= require('./server/directives/auth')
+const AuthDirective = require('./server/directives/auth')
 const db = require('./database/database');
 
 const apolloCore = require("apollo-server-core");
@@ -21,9 +19,16 @@ const Debt = db.Models.Debt
 const User = db.Models.User
 const resolvers = require('./server/resolvers',);
 const jwt = require('jsonwebtoken');
-const server = new ApolloServer({
+const {makeExecutableSchema} = require('@graphql-tools/schema');
+
+
+let schema = makeExecutableSchema({
     typeDefs,
-    resolvers,
+    resolvers
+})
+schema = AuthDirective(schema, 'auth');
+const server = new ApolloServer({
+    schema,
     context: ({req}) => {
         const auth = req.headers.authorization;
         let user = null;
@@ -32,9 +37,6 @@ const server = new ApolloServer({
             user = jwt.verify(token, process.env.JWT_SECRET);
         }
         return {user};
-    },
-    schemaDirectives: {
-        auth: AuthDirective
     },
     debug: true,
     playground: true,
