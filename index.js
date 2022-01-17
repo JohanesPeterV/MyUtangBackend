@@ -1,5 +1,7 @@
 "use strict";
 
+import AuthDirective from "./server/directives/auth";
+
 const db = require('./database/database');
 
 const apolloCore = require("apollo-server-core");
@@ -29,7 +31,9 @@ const server = new ApolloServer({
         }
         return {user};
     },
-
+    schemaDirectives: {
+        auth: AuthDirective
+    },
     debug: true,
     playground: true,
     introspection: true,
