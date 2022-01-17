@@ -14,6 +14,14 @@ class MyUtangError extends ApolloError.ApolloError {
 }
 
 const resolvers = {
+        Debt: {
+            debtor(parent) {
+                console.log(parent);
+                return User.findOne(where({
+                    // id: parent.debtor
+                }));
+            }
+        },
         Query: {
             async user(root, args, context) {
                 return context.user;
@@ -25,7 +33,7 @@ const resolvers = {
                 return Debt.findAll(
                     {
                         where: {
-                            debtor: context.user,
+                            debtor: context.user.id,
                             isPaid: false
                         }
                     }
