@@ -21,7 +21,6 @@ function authDirectiveTransformer(schema) {
                 const {resolve = defaultFieldResolver} = fieldConfig;
                 fieldConfig.resolve = async function (source, args, context, info) {
                     const result = await resolve(source, args, context, info);
-                    console.log('masuk');
                     if (!context.user) {
                         return new apollo.AuthenticationError("You must be logged in to do this action")
                     }

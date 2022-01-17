@@ -16,9 +16,22 @@ class MyUtangError extends ApolloError.ApolloError {
 const resolvers = {
         Debt: {
             debtor(parent) {
-                return User.findOne(where({
-                    id: parent.debtor
-                }));
+                return User.findOne((
+                    {
+                        where: {
+                            id: parent.debtor
+                        }
+                    }
+                ));
+            },
+            lender(parent) {
+                return User.findOne({
+                    where: (
+                        {
+                            id: parent.lender
+                        }
+                    )
+                });
             }
         },
         Query: {
