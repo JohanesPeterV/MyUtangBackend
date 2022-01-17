@@ -25,6 +25,7 @@ const resolvers = {
                 ));
             },
             lender(parent) {
+                console.log(parent)
                 return User.findOne({
                     where: (
                         {
@@ -148,14 +149,12 @@ const resolvers = {
                             ).then(
                                 (result) => {
                                     console.log(result)
-                                    result.shift();
-                                    resolve(result);
+
                                 }
                             )
                         }
                     )
                 }
-
                 const data = await update();
                 return data;
             },
