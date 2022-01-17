@@ -134,15 +134,29 @@ const resolvers = {
                 }
             },
             async payAllDebts(root, args, context) {
-                return await Debt.update({isPaid: true}, {
-                        where:
-                            {
-                                debtor: context.user.id
-                            },
-                        returning: true,
-                        plain: true
-                    },
-                );
+                function update() {
+                    return new Promise(
+                        resolve => {
+                            Debt.update({isPaid: true}, {
+                                    where:
+                                        {
+                                            debtor: context.user.id
+                                        },
+                                    returning: true,
+                                    plain: true
+                                },
+                            ).then(
+                                (result) => {
+                                    result.shift();
+                                    resolve(result);
+                                }
+                            )
+                        }
+                    )
+                }
+
+                const data = await update();
+                return data;
             },
             async payDebt(root, {debtId}, context) {
                 function update() {
