@@ -1,6 +1,6 @@
 const {gql} = require('apollo-server');
 const typeDefs = gql`
-    directive @auth on FIELD_DEFINITION | OBJECT
+    directive @auth on FIELD_DEFINITION 
     type User{
         id: ID!
         discordId: String
