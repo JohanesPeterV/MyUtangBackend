@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6904a120-ae62-4876-9e60-10c436c298ed" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/directives/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/directives/auth.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,6 +46,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="ts.external.directory.path" value="C:\Users\User\Documents\0.JP20-2\Programs\MyUtangBackEnd\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -82,7 +84,7 @@
       <workItem from="1642216896229" duration="14024000" />
       <workItem from="1642239129571" duration="1706000" />
       <workItem from="1642240921574" duration="2029000" />
-      <workItem from="1642388637842" duration="12680000" />
+      <workItem from="1642388637842" duration="13178000" />
     </task>
     <servers />
   </component>

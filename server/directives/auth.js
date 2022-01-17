@@ -7,21 +7,21 @@ function authDirectiveTransformer(schema) {
     return mapSchema(schema, {
         [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
             const authDirective = getDirective(schema, fieldConfig, directiveName)?.[0];
-            console.log('brbr')
-            console.log(fieldConfig);
-            console.log(authDirective)
-            if(typeof authDirective === 'undefined'){
-                console.log('undefined bro')
-            }
-            if(typeof authDirective !== 'undefined'){
-                console.log('defined bro')
-            }
+            // console.log('brbr')
+            // console.log(fieldConfig);
+            // console.log(authDirective)
+            // if(typeof authDirective === 'undefined'){
+            //     console.log('undefined bro')
+            // }
+            // if(typeof authDirective !== 'undefined'){
+            //     console.log('defined bro')
+            // }
 
             if (authDirective && typeof authDirective !== 'undefined') {
-                console.log('masuk');
                 const {resolve = defaultFieldResolver} = fieldConfig;
                 fieldConfig.resolve = async function (source, args, context, info) {
                     const result = await resolve(source, args, context, info);
+                    console.log('masuk');
                     if (!context.user) {
                         return new apollo.AuthenticationError("You must be logged in to do this action")
                     }
