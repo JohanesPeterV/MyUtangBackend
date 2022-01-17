@@ -1,7 +1,7 @@
 "use strict";
 
 
-const AuthDirective = require('./server/directives/auth')
+const authDirectiveTransformer = require('./server/directives/auth')
 const db = require('./database/database');
 
 const apolloCore = require("apollo-server-core");
@@ -26,9 +26,12 @@ let schema = makeExecutableSchema({
     typeDefs,
     resolvers
 })
-schema = AuthDirective(schema, 'auth');
+
+console.log(authDirectiveTransformer);
+schema = authDirectiveTransformer(schema, 'auth');
 const server = new ApolloServer({
     schema,
+
     context: ({req}) => {
         const auth = req.headers.authorization;
         let user = null;

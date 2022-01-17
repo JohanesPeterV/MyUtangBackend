@@ -5,13 +5,10 @@ const directiveName = 'auth';
 
 function authDirectiveTransformer(schema) {
     return mapSchema(schema, {
-        // Executes once for each object field definition in the schema
         [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
             const {resolve = defaultFieldResolver} = fieldConfig;
             const authDirective = getDirective(schema, fieldConfig, directiveName)?.[0];
-            console.log('testing terakhir')
             if (authDirective) {
-                console.log('testing terakhir')
                 console.log(schema)
                 console.log(fieldConfig)
                 console.log(authDirective)
