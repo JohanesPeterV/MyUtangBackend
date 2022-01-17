@@ -145,6 +145,7 @@ const resolvers = {
                 );
             },
             async payDebt(root, {debtId}, context) {
+                let temp;
                 const test = await Debt.update({isPaid: true}, {
                         where:
                             {
@@ -153,9 +154,11 @@ const resolvers = {
                             },
                         returning: true,
                         plain: true
-
                     },
-                )
+                ).then((result) => {
+                    console.log(result)
+                })
+                console.log('disini')
                 console.log(test);
                 return test
             }
