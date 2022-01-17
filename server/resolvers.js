@@ -77,15 +77,15 @@ const resolvers = {
 
         },
         Mutation: {
-            async createDebt(root, {title, description, debtorId, value}, context) {
-                if (debtorId === context.user.id) {
+            async createDebt(root, {title, description, debtor, value}, context) {
+                if (debtor === context.user.id) {
                     throw new MyUtangError('User should not create debt to him/herself', 'ValidationError');
                 }
                 return Debt.create({
                     title: title,
                     description: description,
-                    debtorId: debtorId,
-                    lenderId: context.user.id,
+                    debtor: debtor,
+                    lender: context.user.id,
                     value: value,
                     isPaid: false
                 });
@@ -118,7 +118,7 @@ const resolvers = {
                 return Debt.update({paid: true}, {
                         where:
                             {
-                                debtorId: context.user.id
+                                debtor: context.user.id
                             }
                     },
                 );
