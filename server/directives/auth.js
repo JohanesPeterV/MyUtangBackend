@@ -7,9 +7,11 @@ function authDirectiveTransformer(schema) {
     return mapSchema(schema, {
         [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
             const authDirective = getDirective(schema, fieldConfig, directiveName)?.[0];
+            console.log('masuk sini')
             console.log(schema)
             console.log(fieldConfig)
-            console.log(authDirective)
+
+
 
             if (authDirective) {
                 const {resolve = defaultFieldResolver} = fieldConfig;
