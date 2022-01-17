@@ -123,6 +123,17 @@ const resolvers = {
                     },
                 );
             },
+            async payDebt(root, {id}, context) {
+                return Debt.update({paid: true}, {
+                        where:
+                            {
+                                debtor: context.user.id,
+                                id: id
+                            }
+                    },
+                );
+            }
+
         }
     }
 ;
