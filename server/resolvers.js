@@ -138,7 +138,8 @@ const resolvers = {
                         where:
                             {
                                 debtor: context.user.id
-                            }
+                            },
+                        returning: true
                     },
                 );
             },
@@ -148,7 +149,9 @@ const resolvers = {
                             {
                                 debtor: context.user.id,
                                 id: debtId
-                            }
+                            },
+                        returning: true
+
                     },
                 );
             }

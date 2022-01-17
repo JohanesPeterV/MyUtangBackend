@@ -4,6 +4,7 @@ const saltRounds = 10;
 var Utils = {
     bcrypt: bcrypt,
     bcryptPassword: function (password) {
+
         return new Promise(
             resolve => {
                 bcrypt.genSalt(saltRounds, function (err, salt) {
@@ -14,8 +15,8 @@ var Utils = {
                 );
             }
         )
-
     }
+
 }
 
 module.exports = Utils
