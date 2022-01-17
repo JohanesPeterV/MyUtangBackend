@@ -147,6 +147,7 @@ const resolvers = {
                                 },
                             ).then(
                                 (result) => {
+                                    console.log(result)
                                     result.shift();
                                     resolve(result);
                                 }
