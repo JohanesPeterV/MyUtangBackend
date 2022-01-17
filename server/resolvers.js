@@ -25,7 +25,7 @@ const resolvers = {
                 return Debt.findAll(
                     {
                         where: {
-                            debtorId: context.user.id,
+                            debtor: context.user.id,
                             isPaid: false
                         }
                     }
@@ -35,7 +35,7 @@ const resolvers = {
                 return Debt.findAll(
                     {
                         where: {
-                            lenderId: context.user.id,
+                            lender: context.user.id,
                             isPaid: false
                         }
                     }
@@ -45,8 +45,8 @@ const resolvers = {
                 const firstUserDebts = await Debt.findAll(
                     {
                         where: {
-                            debtorId: firstUserId,
-                            lenderId: secondUserId,
+                            debtor: firstUserId,
+                            lender: secondUserId,
                             isPaid: false
                         }
                     }
@@ -60,8 +60,8 @@ const resolvers = {
                 const secondUserDebts = await Debt.findAll(
                     {
                         where: {
-                            debtorId: secondUserId,
-                            lenderId: firstUserId,
+                            debtor: secondUserId,
+                            lender: firstUserId,
                             isPaid: false
                         }
                     }
