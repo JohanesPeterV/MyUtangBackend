@@ -10,8 +10,15 @@ function authDirectiveTransformer(schema) {
             console.log('masuk sini huhuhu')
             console.log(fieldConfig)
             console.log(authDirective)
+            if(authDirective===undefined){
+                console.log('ga defined brooo')
+            }
 
-            if (authDirective && authDirective.directives.length>0) {
+            if(authDirective){
+                console.log('ga null')
+            }
+
+            if (authDirective ) {
                 console.log('masuk huhuhu')
                 const {resolve = defaultFieldResolver} = fieldConfig;
                 fieldConfig.resolve = async function (source, args, context, info) {
