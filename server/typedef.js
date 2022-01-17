@@ -31,7 +31,7 @@ const typeDefs = gql`
         register(userName: String!, password: String!): AuthPayLoad!
         login(userName: String!, password: String!): AuthPayLoad!
         payAllDebts:[Debt!]! @auth
-        payDebt(id: ID!): Debt! @auth
+        payDebt(debtId: ID!): Debt! @auth
     }
 `;
 module.exports = typeDefs;
