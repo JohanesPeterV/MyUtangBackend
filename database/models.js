@@ -14,7 +14,6 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
-
         },
         password: {
             type: DataTypes.STRING,
@@ -40,14 +39,16 @@ module.exports = (sequelize) => {
             references: {
                 model: User,
                 key: 'id'
-            }
+            },
+            allowNull: false
         },
         lender: {
             type: DataTypes.INTEGER,
             references: {
                 model: User,
                 key: 'id'
-            }
+            },
+            allowNull: false
         },
         amount: {
             type: DataTypes.INTEGER,
@@ -56,6 +57,7 @@ module.exports = (sequelize) => {
         isPaid: {
             type: DataTypes.BOOLEAN,
             allowNull: false
+
         }
     }, {timestamps: true});
     return {User: User, Debt: Debt};
