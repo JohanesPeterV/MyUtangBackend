@@ -1,10 +1,11 @@
-import { AuthenticationError, SchemaDirectiveVisitor } from 'apollo-server-express';
-import { defaultFieldResolver } from 'graphql';
+import {AuthenticationError, SchemaDirectiveVisitor} from 'apollo-server-express';
+import {defaultFieldResolver} from 'graphql';
+
 class AuthDirective extends SchemaDirectiveVisitor {
     visitFieldDefinition(field) {
         const requiredRole = this.args.requires;
         const originalResolve = field.resolve || defaultFieldResolver;
-        field.resolve = function(...args) {
+        field.resolve = function (...args) {
             const context = args[2];
             const user = context.getUser() || {};
 
@@ -16,4 +17,5 @@ class AuthDirective extends SchemaDirectiveVisitor {
         }
     }
 }
-export default AuthDirective;
+
+module.exports = AuthDirective;

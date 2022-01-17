@@ -1,7 +1,9 @@
 "use strict";
 
-import AuthDirective from "./server/directives/auth";
 
+
+
+const AuthDirective= require('./server/directives/auth')
 const db = require('./database/database');
 
 const apolloCore = require("apollo-server-core");
