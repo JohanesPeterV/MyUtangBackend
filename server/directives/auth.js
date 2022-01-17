@@ -10,7 +10,7 @@ function authDirectiveTransformer(schema) {
             console.log('brbr')
             console.log(fieldConfig);
             console.log(authDirective)
-            if (authDirective && authDirective !== undefined) {
+            if (authDirective && typeof authDirective !== 'undefined') {
                 const {resolve = defaultFieldResolver} = fieldConfig;
                 fieldConfig.resolve = async function (source, args, context, info) {
                     const result = await resolve(source, args, context, info);
