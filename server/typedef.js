@@ -12,7 +12,7 @@ const typeDefs = gql`
         title: String!
         description: String!
         debtor: User!
-        debtor: User!
+        lender: User!
         amount: Int!
         isPaid: Boolean!
     }
