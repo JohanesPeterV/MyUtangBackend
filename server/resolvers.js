@@ -97,7 +97,7 @@ const resolvers = {
         },
         Mutation: {
             async createDebt(root, {title, description, debtorId, amount}, context) {
-                if (debtorId === context.user.id) {
+                if (debtorId.toString() === context.user.id) {
                     throw new MyUtangError('User should not create debt to him/herself', 'ValidationError');
                 }
                 return Debt.create({
