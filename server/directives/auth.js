@@ -11,7 +11,7 @@ function authDirectiveTransformer(schema) {
             console.log(fieldConfig)
             console.log(authDirective)
 
-            if (authDirective) {
+            if (authDirective && authDirective !== 'undefined') {
                 console.log('masuk')
                 const {resolve = defaultFieldResolver} = fieldConfig;
                 fieldConfig.resolve = async function (source, args, context, info) {
