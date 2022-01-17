@@ -145,22 +145,26 @@ const resolvers = {
                 );
             },
             async payDebt(root, {debtId}, context) {
-                let temp;
-                const test = await Debt.update({isPaid: true}, {
-                        where:
-                            {
-                                debtor: context.user.id,
-                                id: debtId
-                            },
-                        returning: true,
-                        plain: true
-                    },
-                ).then((result) => {
-                    console.log(result)
-                })
-                console.log('disini')
-                console.log(test);
-                return test
+                function update() {
+                    return new Promise(
+                        resolve => {
+                            Debt.update({isPaid: true}, {
+                                    where:
+                                        {
+                                            debtor: context.user.id,
+                                            id: debtId
+                                        },
+                                    returning: true,
+                                    plain: true
+                                },
+                            ).then((result) => {
+                                resolve(result);
+                            })
+                        }
+                    )
+                }
+
+                return await update();
             }
         }
     }
