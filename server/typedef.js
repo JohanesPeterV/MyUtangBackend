@@ -16,15 +16,15 @@ const typeDefs = gql`
         amount: Int!
         isPaid: Boolean!
     }
+    type AuthPayLoad{
+        token: String!
+    }
     type Query{
         user: User @auth
         users:[User!]! @auth
         unpaidDebts:[Debt!]! @auth
         unpaidLendedDebts:[Debt!]! @auth
         debtGrandTotal(firstUserId: ID!, secondUserId:ID!):Int! @auth
-    }
-    type AuthPayLoad{
-        token: String! @auth
     }
     type Mutation{
         createDebt(title: String!, description: String!, debtorId:ID!,amount: Int!):Debt! @auth
