@@ -1,11 +1,12 @@
 const {mapSchema, getDirective, MapperKind} = require('@graphql-tools/utils');
 const apollo = require('apollo-server')
-const {resolve} = require("@protobufjs/path");
+const {defaultFieldResolver} = require("graphql");
 
 function authDirectiveTransformer(schema, directiveName) {
     return mapSchema(schema, {
         // Executes once for each object field definition in the schema
         [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
+            const { resolve = defaultFieldResolver } = fieldConfig;
             const authDirective = getDirective(schema, fieldConfig, directiveName)?.[0];
             if (authDirective) {
                 fieldConfig.resolve = async function (source, args, context, info) {
