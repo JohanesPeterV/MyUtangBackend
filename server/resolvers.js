@@ -148,7 +148,8 @@ const resolvers = {
                     ({
                         where:
                             {
-                                debtor: context.user.id
+                                debtor: context.user.id,
+                                isPaid: false
                             },
                     })
                 );
