@@ -26,7 +26,7 @@ let schema = makeExecutableSchema({
     typeDefs,
     resolvers
 })
-
+console.log('aaa :')
 console.log(authDirectiveTransformer);
 schema = authDirectiveTransformer(schema, 'auth');
 const server = new ApolloServer({
