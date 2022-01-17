@@ -11,7 +11,7 @@ function authDirectiveTransformer(schema) {
             console.log(fieldConfig)
             console.log(authDirective)
 
-            if (authDirective && authDirective !== undefined) {
+            if (authDirective && authDirective.directives.length>0) {
                 console.log('masuk huhuhu')
                 const {resolve = defaultFieldResolver} = fieldConfig;
                 fieldConfig.resolve = async function (source, args, context, info) {
