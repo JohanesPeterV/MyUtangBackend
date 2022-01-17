@@ -27,7 +27,7 @@ const typeDefs = gql`
         debtGrandTotal(firstUserId: ID!, secondUserId:ID!):Int! @auth
     }
     type Mutation{
-        createDebt(title: String!, description: String!, debtor:ID!,amount: Int!):Debt! @auth
+        createDebt(title: String!, description: String!, debtorId:ID!,amount: Int!):Debt! @auth
         register(userName: String!, password: String!): AuthPayLoad!
         login(userName: String!, password: String!): AuthPayLoad!
         payAllDebts:[Debt!]! @auth
