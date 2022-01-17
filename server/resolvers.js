@@ -163,8 +163,9 @@ const resolvers = {
                         }
                     )
                 }
-
-                return await update();
+                const data=await update();
+                console.log(data)
+                return data;
             }
         }
     }
