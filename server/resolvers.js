@@ -94,7 +94,6 @@ const resolvers = {
                 )
                 return firstUserTotal - secondUserTotal;
             }
-
         },
         Mutation: {
             async createDebt(root, {title, description, debtorId, amount}, context) {
@@ -135,7 +134,7 @@ const resolvers = {
                 }
             },
             async payAllDebts(root, args, context) {
-                return Debt.update({paid: true}, {
+                return Debt.update({isPaid: true}, {
                         where:
                             {
                                 debtor: context.user.id
@@ -144,7 +143,7 @@ const resolvers = {
                 );
             },
             async payDebt(root, {debtId}, context) {
-                return Debt.update({paid: true}, {
+                return Debt.update({isPaid: true}, {
                         where:
                             {
                                 debtor: context.user.id,
