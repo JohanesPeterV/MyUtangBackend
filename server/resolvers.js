@@ -164,7 +164,10 @@ const resolvers = {
                     )
                 }
                 const data=await update();
-                console.log(data)
+                console.log('0')
+                console.log(data[0])
+                console.log('1')
+                console.log(data[1])
                 return data;
             }
         }
