@@ -7,18 +7,8 @@ function authDirectiveTransformer(schema) {
     return mapSchema(schema, {
         [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
             const authDirective = getDirective(schema, fieldConfig, directiveName)?.[0];
-            console.log('masuk sini huhuhu')
-            console.log(fieldConfig)
-            console.log(authDirective)
-            if(authDirective===undefined){
-                console.log('ga defined brooo')
-            }
 
-            if(authDirective){
-                console.log('ga null')
-            }
-
-            if (authDirective ) {
+            if (authDirective && authDirective === undefined) {
                 console.log('masuk huhuhu')
                 const {resolve = defaultFieldResolver} = fieldConfig;
                 fieldConfig.resolve = async function (source, args, context, info) {
