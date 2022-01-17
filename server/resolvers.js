@@ -54,6 +54,14 @@ const resolvers = {
                 );
             },
             async unpaidLendedDebts(root, args, context) {
+                console.log(Debt.findAll(
+                    {
+                        where: {
+                            lender: context.user.id,
+                            isPaid: false
+                        }
+                    }
+                ));
                 return Debt.findAll(
                     {
                         where: {
@@ -156,6 +164,7 @@ const resolvers = {
                         }
                     )
                 }
+
                 const data = await update();
                 return data;
             },
