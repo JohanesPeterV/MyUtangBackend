@@ -12,7 +12,7 @@ function authDirectiveTransformer(schema, directiveName) {
                 fieldConfig.resolve = async function (source, args, context, info) {
                     const result = await resolve(source, args, context, info);
                     if (!context.user) {
-                        return apollo.AuthenticationError("You must be logged in to do this action")
+                        return new apollo.AuthenticationError("You must be logged in to do this action")
                     }
                     return result;
                 }
