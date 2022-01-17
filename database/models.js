@@ -33,14 +33,14 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        debtorId: {
+        debtor: {
             type: DataTypes.INTEGER,
             references: {
                 model: User,
                 key: 'id'
             }
         },
-        lenderId: {
+        lender: {
             type: DataTypes.INTEGER,
             references: {
                 model: User,

@@ -11,8 +11,8 @@ const typeDefs = gql`
         id: ID!
         title: String!
         description: String!
-        debtorId: ID!
-        lenderId: ID    !
+        debtor: User!
+        debtor: User!
         amount: Int!
         isPaid: Boolean!
     }

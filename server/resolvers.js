@@ -114,9 +114,6 @@ const resolvers = {
                     throw new Error(new MyUtangError('LoginFail', 'Wrong password'));
                 }
             },
-            // signUp(userName: String!, password: String!): AuthPayLoad!
-            // payAllDebts(userId: Int!):[Debt!]!
-            // payAllDebtsBetween(debtorId: Int!, lenderId:Int!):[Debt!]!
             async payAllDebts(root, args, context) {
                 return Debt.update({paid: true}, {
                         where:
