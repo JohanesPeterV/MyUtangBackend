@@ -1,5 +1,9 @@
-import {AuthenticationError, SchemaDirectiveVisitor} from 'apollo-server-express';
-import {defaultFieldResolver} from 'graphql';
+const apolloServer = require('apollo-server')
+const AuthenticationError = apolloServer.AuthenticationError;
+const SchemaDirectiveVisitor = apolloServer.SchemaDirectiveVisitor;
+const graphql = require('graphql');
+const defaultFieldResolver = graphql.defaultFieldResolver;
+
 
 class AuthDirective extends SchemaDirectiveVisitor {
     visitFieldDefinition(field) {
