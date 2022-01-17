@@ -12,6 +12,8 @@ function authDirectiveTransformer(schema) {
             console.log('testing terakhir')
             if (authDirective) {
                 console.log('testing terakhir')
+                console.log(schema)
+                console.log(fieldConfig)
                 console.log(authDirective)
                 fieldConfig.resolve = async function (source, args, context, info) {
                     const result = await resolve(source, args, context, info);
