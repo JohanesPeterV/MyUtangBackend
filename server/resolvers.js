@@ -139,23 +139,26 @@ const resolvers = {
                             {
                                 debtor: context.user.id
                             },
-                        returning: true
+                        returning: true,
+                        plain: true
                     },
                 );
             },
             async payDebt(root, {debtId}, context) {
-                return await Debt.update({isPaid: true}, {
+                const test=await Debt.update({isPaid: true}, {
                         where:
                             {
                                 debtor: context.user.id,
                                 id: debtId
                             },
-                        returning: true
+                        returning: true,
+                        plain: true
 
                     },
                 );
-            }
 
+                return test
+            }
         }
     }
 ;
