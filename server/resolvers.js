@@ -16,15 +16,12 @@ class MyUtangError extends ApolloError.ApolloError {
 const resolvers = {
         Query: {
             async user(root, args, context) {
-                if (!context.user) return null;
                 return context.user;
             },
             async users(root, args, context) {
-                if (!context.user) throw new MyUtangError('User must be logged in', 'AuthenticationError');
                 return User.findAll();
             },
             async unpaidDebts(root, args, context) {
-                if (!context.user) throw new MyUtangError('User must be logged in', 'AuthenticationError');
                 return Debt.findAll(
                     {
                         where: {
@@ -35,7 +32,6 @@ const resolvers = {
                 );
             },
             async unpaidLendedDebts(root, args, context) {
-                if (!context.user) throw new MyUtangError('User must be logged in', 'AuthenticationError');
                 return Debt.findAll(
                     {
                         where: {
@@ -82,7 +78,6 @@ const resolvers = {
         },
         Mutation: {
             async createDebt(root, {title, description, debtorId, value}, context) {
-                if (!context.user) throw new MyUtangError('User must be logged in', 'AuthenticationError');
                 if (debtorId === context.user.id) {
                     throw new MyUtangError('User should not create debt to him/herself', 'ValidationError');
                 }
@@ -90,7 +85,7 @@ const resolvers = {
                     title: title,
                     description: description,
                     debtorId: debtorId,
-                    lenderId: lenderId,
+                    lenderId: context.user.id,
                     value: value,
                     isPaid: false
                 });
@@ -101,7 +96,6 @@ const resolvers = {
                 let hash = await Utils.bcryptPassword(password);
                 const currUser = await User.create({userName: userName, password: hash, discordId: null});
                 return {token: jwt.sign(currUser.dataValues, process.env.JWT_SECRET)}
-
             },
             async login(root, {userName, password}) {
                 const currUser = await User.findOne(
@@ -120,12 +114,10 @@ const resolvers = {
                     throw new Error(new MyUtangError('LoginFail', 'Wrong password'));
                 }
             },
-
             // signUp(userName: String!, password: String!): AuthPayLoad!
             // payAllDebts(userId: Int!):[Debt!]!
             // payAllDebtsBetween(debtorId: Int!, lenderId:Int!):[Debt!]!
             async payAllDebts(root, args, context) {
-                if (!context.user) throw new MyUtangError('User must be logged in', 'AuthenticationError');
                 return Debt.update({paid: true}, {
                         where:
                             {

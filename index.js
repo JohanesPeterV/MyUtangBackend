@@ -29,6 +29,7 @@ const server = new ApolloServer({
         }
         return {user};
     },
+
     debug: true,
     playground: true,
     introspection: true,
