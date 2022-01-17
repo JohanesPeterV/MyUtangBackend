@@ -1,5 +1,6 @@
 const {mapSchema, getDirective, MapperKind} = require('@graphql-tools/utils');
 const apollo = require('apollo-server')
+const {resolve} = require("@protobufjs/path");
 
 function authDirectiveTransformer(schema, directiveName) {
     return mapSchema(schema, {
