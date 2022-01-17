@@ -134,7 +134,7 @@ const resolvers = {
                 }
             },
             async payAllDebts(root, args, context) {
-                return Debt.update({isPaid: true}, {
+                return await Debt.update({isPaid: true}, {
                         where:
                             {
                                 debtor: context.user.id
@@ -143,7 +143,7 @@ const resolvers = {
                 );
             },
             async payDebt(root, {debtId}, context) {
-                return Debt.update({isPaid: true}, {
+                return await Debt.update({isPaid: true}, {
                         where:
                             {
                                 debtor: context.user.id,
