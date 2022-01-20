@@ -107,8 +107,8 @@ const resolvers = {
         },
         Mutation: {
             async createDebt(root, {title, description, debtorId, amount}, context) {
-                if(amount<5000){
-                    throw new MyUtangError('Utang should not be less than 1000','ValidationError');
+                if (amount < 5000) {
+                    throw new MyUtangError('Utang should not be less than 1000', 'ValidationError');
                 }
                 if (debtorId.toString() === context.user.id.toString()) {
                     throw new MyUtangError('User should not create debt to him/herself', 'ValidationError');
@@ -173,6 +173,36 @@ const resolvers = {
                                     where:
                                         {
                                             debtor: context.user.id,
+                                            id: debtId
+                                        },
+                                    returning: true,
+                                    plain: true
+                                },
+                            ).then((result) => {
+                                resolve(result);
+                            })
+                        }
+                    )
+                }
+
+                const data = await update();
+                return data[1];
+            },
+
+            async updateDebt(root, {title, description, amount}, context) {
+
+                function update() {
+                    return new Promise(
+                        resolve => {
+
+                            Debt.update({
+                                    title: title,
+                                    description: description,
+                                    amount: amount
+                                }, {
+                                    where:
+                                        {
+                                            lender: context.user.id,
                                             id: debtId
                                         },
                                     returning: true,
