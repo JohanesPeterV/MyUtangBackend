@@ -107,6 +107,9 @@ const resolvers = {
         },
         Mutation: {
             async createDebt(root, {title, description, debtorId, amount}, context) {
+                if(amount<5000){
+                    throw new MyUtangError('Utang should not be less than 1000','ValidationError');
+                }
                 if (debtorId.toString() === context.user.id.toString()) {
                     throw new MyUtangError('User should not create debt to him/herself', 'ValidationError');
                 }
