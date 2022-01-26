@@ -43,6 +43,26 @@ const resolvers = {
             async users(root, args, context) {
                 return User.findAll();
             },
+            async debtHistory(root, args, context) {
+                return Debt.findAll(
+                    {
+                        where: {
+                            debtor: context.user.id,
+                            isPaid: true
+                        }
+                    }
+                );
+            },
+            async lendingHistory(root, args, context) {
+                return Debt.findAll(
+                    {
+                        where: {
+                            lender: context.user.id,
+                            isPaid: true
+                        }
+                    }
+                );
+            },
             async unpaidDebts(root, args, context) {
                 return Debt.findAll(
                     {
@@ -53,15 +73,7 @@ const resolvers = {
                     }
                 );
             },
-            async unpaidLendedDebts(root, args, context) {
-                console.log(Debt.findAll(
-                    {
-                        where: {
-                            lender: context.user.id,
-                            isPaid: false
-                        }
-                    }
-                ));
+            async unpaidLendings(root, args, context) {
                 return Debt.findAll(
                     {
                         where: {

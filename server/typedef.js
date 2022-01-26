@@ -23,7 +23,9 @@ const typeDefs = gql`
         user: User @auth
         users:[User!]! @auth
         unpaidDebts:[Debt!]! @auth
-        unpaidLendedDebts:[Debt!]! @auth
+        unpaidLendings:[Debt!]! @auth
+        debtHistory:[Debt!]! @auth
+        lendingHistory:[Debt!]! @auth
         debtGrandTotal(firstUserId: ID!, secondUserId:ID!):Int! @auth
     }
     type Mutation{
