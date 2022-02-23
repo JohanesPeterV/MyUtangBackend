@@ -39,7 +39,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../0.Temp/preparations/jquery" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../cher/cher-portofolio-app" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -89,7 +89,10 @@
       <workItem from="1642482108255" duration="481000" />
       <workItem from="1642643696465" duration="1311000" />
       <workItem from="1642647155025" duration="219000" />
-      <workItem from="1643163207849" duration="524000" />
+      <workItem from="1643163207849" duration="614000" />
+      <workItem from="1643952623376" duration="117000" />
+      <workItem from="1644985665477" duration="65000" />
+      <workItem from="1645591074371" duration="337000" />
     </task>
     <servers />
   </component>

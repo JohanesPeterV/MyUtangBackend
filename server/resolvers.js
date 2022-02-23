@@ -200,6 +200,29 @@ const resolvers = {
                 const data = await update();
                 return data[1];
             },
+            async markLendingAsPaid(root, {debtId}, context) {
+                function update() {
+                    return new Promise(
+                        resolve => {
+                            Debt.update({isPaid: true}, {
+                                    where:
+                                        {
+                                            lender: context.user.id,
+                                            id: debtId
+                                        },
+                                    returning: true,
+                                    plain: true
+                                },
+                            ).then((result) => {
+                                resolve(result);
+                            })
+                        }
+                    )
+                }
+
+                const data = await update();
+                return data[1];
+            },
             async updateDebt(root, {debtId, title, description, amount}, context) {
                 function update() {
                     return new Promise(
