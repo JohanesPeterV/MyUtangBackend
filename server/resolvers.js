@@ -69,7 +69,7 @@ const resolvers = {
                             isPaid: false
                         },
                         order: [
-                            ['debtor_id','ASC'],
+                            ['debtorid','ASC'],
                         ]
                     }
                 );
@@ -82,7 +82,7 @@ const resolvers = {
                             isPaid: false
                         },
                         order: [
-                            ['lender_id','ASC'],
+                            ['lenderid','ASC'],
                         ]
                     }
                 );
