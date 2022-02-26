@@ -10,13 +10,11 @@ class MyUtangError extends ApolloError.ApolloError {
         super(message, category);
         Object.defineProperty(this, 'name', {value: 'MyError'});
     }
-
 }
 
 const resolvers = {
         Debt: {
             debtor(parent) {
-
                 console.log(parent)
                 return User.findOne((
                     {
@@ -69,7 +67,10 @@ const resolvers = {
                         where: {
                             debtor: context.user.id,
                             isPaid: false
-                        }
+                        },
+                        order: [
+                            ['id','ASC'],
+                        ]
                     }
                 );
             },
@@ -219,7 +220,6 @@ const resolvers = {
                         }
                     )
                 }
-
                 const data = await update();
                 return data[1];
             },
