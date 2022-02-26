@@ -69,7 +69,7 @@ const resolvers = {
                             isPaid: false
                         },
                         order: [
-                            ['id','ASC'],
+                            ['debtor_id','ASC'],
                         ]
                     }
                 );
@@ -80,7 +80,10 @@ const resolvers = {
                         where: {
                             lender: context.user.id,
                             isPaid: false
-                        }
+                        },
+                        order: [
+                            ['lender_id','ASC'],
+                        ]
                     }
                 );
             },
