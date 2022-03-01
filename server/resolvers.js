@@ -150,7 +150,7 @@ const resolvers = {
                     ({
                         where: {
                             userName: db.sequelize.where(
-                                db.sequelize.fn('LOWER', db.sequelize.col('userName'), ),'LIKE', userName
+                                db.sequelize.fn('LOWER', db.sequelize.col('userName'), ),'LIKE', userName.toLowerCase()
                             ),
                         }
                     })
