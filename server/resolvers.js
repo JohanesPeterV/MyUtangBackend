@@ -69,7 +69,7 @@ const resolvers = {
                             isPaid: false
                         },
                         order: [
-                            ['debtor','ASC'],
+                            ['debtor', 'ASC'],
                         ]
                     }
                 );
@@ -82,7 +82,7 @@ const resolvers = {
                             isPaid: false
                         },
                         order: [
-                            ['lender','ASC'],
+                            ['lender', 'ASC'],
                         ]
                     }
                 );
@@ -149,7 +149,9 @@ const resolvers = {
                 const currUser = await User.findOne(
                     ({
                         where: {
-                            userName: userName,
+                            userName: {
+                                [Op.like]: userName,
+                            },
                         }
                     })
                 );
@@ -223,6 +225,7 @@ const resolvers = {
                         }
                     )
                 }
+
                 const data = await update();
                 return data[1];
             },
