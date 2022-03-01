@@ -149,7 +149,9 @@ const resolvers = {
                 const currUser = await User.findOne(
                     ({
                         where: {
-                            userName: db.sequelize.where(db.sequelize.fn('LOWER', db.sequelize.col('userName'))),
+                            userName: db.sequelize.where(
+                                db.sequelize.fn('LOWER', db.sequelize.col('userName'), 'LIKE', userName)
+                            ),
                         }
                     })
                 );
