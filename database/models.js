@@ -13,13 +13,20 @@ module.exports = (sequelize) => {
         userName: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true
         },
         password: {
             type: DataTypes.STRING,
             allowNull: false
         }
-    }, {});
+    }, {
+        indexes: [
+            {
+                unique: true,
+                name: 'unique_user_name',
+                fields: [sequelize.fn('lower', sequelize.col('userName'))],
+            }
+        ]
+    });
     const Debt = sequelize.define('Debt', {
         id: {
             type: DataTypes.INTEGER,
