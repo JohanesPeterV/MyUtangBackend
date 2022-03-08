@@ -36,6 +36,7 @@ const typeDefs = gql`
         payDebt(debtId: ID!): Debt! @auth
         markLendingAsPaid(debtId: ID!): Debt! @auth
         updateDebt(debtId: ID!, title: String!, description: String!, amount:Int!):Debt! @auth
+        changeUserName(userName: String!): User! @auth
     }
 `;
 module.exports = typeDefs;

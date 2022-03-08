@@ -69,7 +69,7 @@ const resolvers = {
                             isPaid: false
                         },
                         order: [
-                            ['lender','ASC'],
+                            ['lender', 'ASC'],
                         ]
                     }
                 );
@@ -82,7 +82,7 @@ const resolvers = {
                             isPaid: false
                         },
                         order: [
-                            ['debtor','ASC'],
+                            ['debtor', 'ASC'],
                         ]
                     }
                 );
@@ -150,7 +150,7 @@ const resolvers = {
                     ({
                         where: {
                             userName: db.sequelize.where(
-                                db.sequelize.fn('LOWER', db.sequelize.col('userName'), ),'LIKE', userName.toLowerCase()
+                                db.sequelize.fn('LOWER', db.sequelize.col('userName'),), 'LIKE', userName.toLowerCase()
                             ),
                         }
                     })
@@ -225,7 +225,34 @@ const resolvers = {
                         }
                     )
                 }
+
                 const data = await update();
+                return data[1];
+            },
+            async changeUserName(root, {userName}, context) {
+                function updateUser() {
+                    return new Promise(
+                        resolve => {
+                            User.update(
+                                {
+                                    userName: userName,
+                                }, {
+                                    where:
+                                        {
+                                            id: context.user.id,
+                                        },
+                                    returning: true,
+                                    plain: true
+                                },
+                            ).then((result) => {
+                                    resolve(result);
+                                }
+                            );
+
+                        }
+                    )
+                }
+                const data = await updateUser();
                 return data[1];
             },
             async updateDebt(root, {debtId, title, description, amount}, context) {
