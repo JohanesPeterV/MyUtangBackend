@@ -35,7 +35,7 @@ const typeDefs = gql`
         payAllDebts:[Debt!]! @auth
         payDebt(debtId: ID!): Debt! @auth
         markLendingAsPaid(debtId: ID!): Debt! @auth
-        updateDebt(debtId: ID!, title: String!, description: String!, amount:Int!):Debt! @auth
+        updateDebt(debtId: ID!, debtorId: ID!, title: String!, description: String!, amount:Int!):Debt! @auth
         changeUserName(userName: String!): User! @auth
         changePassword(oldPassword: String!, newPassword: String!): User! @auth
     }

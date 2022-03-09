@@ -297,11 +297,12 @@ const resolvers = {
                 return data[1];
             },
 
-            async updateDebt(root, {debtId, title, description, amount}, context) {
+            async updateDebt(root, {debtId, debtorId, title, description, amount}, context) {
                 function update() {
                     return new Promise(
                         resolve => {
                             Debt.update({
+                                    debtorId: debtorId,
                                     title: title,
                                     description: description,
                                     amount: amount
