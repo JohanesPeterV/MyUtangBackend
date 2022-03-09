@@ -238,9 +238,9 @@ const resolvers = {
                     })
                 );
 
-                // if (!Utils.bcrypt.compareSync(oldPassword, currUser.dataValues.password)) {
-                //     throw new MyUtangError('Wrong old password', 'ValidationError');
-                // }
+                if (!Utils.bcrypt.compareSync(oldPassword, currUser.dataValues.password)) {
+                    throw new MyUtangError('Wrong old password', 'ValidationError');
+                }
 
                 let hash = await Utils.bcryptPassword(newPassword);
 
