@@ -237,17 +237,19 @@ const resolvers = {
                         }
                     })
                 );
-                //
+
                 // if (!Utils.bcrypt.compareSync(oldPassword, currUser.dataValues.password)) {
                 //     throw new MyUtangError('Wrong old password', 'ValidationError');
                 // }
+
+                let hash = await Utils.bcryptPassword(newPassword);
 
                 function updatePassword() {
                     return new Promise(
                         resolve => {
                             User.update(
                                 {
-                                    password: Utils.bcryptPassword(newPassword),
+                                    password: hash,
                                 }, {
                                     where:
                                         {
