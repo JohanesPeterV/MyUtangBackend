@@ -233,9 +233,7 @@ const resolvers = {
                 const currUser = await User.findOne(
                     ({
                         where: {
-                            id: db.sequelize.where({
-                                id: context.user.id
-                            }),
+                            id: context.user.id,
                         }
                     })
                 );
