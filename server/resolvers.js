@@ -229,6 +229,46 @@ const resolvers = {
                 const data = await update();
                 return data[1];
             },
+            async changePassword(root, {oldPassword, newPassword}, context) {
+                const currUser = await User.findOne(
+                    ({
+                        where: {
+                            userName: db.sequelize.where({
+                                id: context.user.id
+                            }),
+                        }
+                    })
+                );
+
+                if (!Utils.bcrypt.compareSync(oldPassword, currUser.dataValues.password)) {
+                    throw new MyUtangError('Wrong old password', 'ValidationError');
+                }
+
+                function updatePassword() {
+                    return new Promise(
+                        resolve => {
+                            User.update(
+                                {
+                                    password: newPassword,
+                                }, {
+                                    where:
+                                        {
+                                            id: context.user.id,
+                                        },
+                                    returning: true,
+                                    plain: true
+                                },
+                            ).then((result) => {
+                                    resolve(result);
+                                }
+                            );
+                        }
+                    )
+                }
+
+                const data = await updatePassword();
+                return data[1];
+            },
             async changeUserName(root, {userName}, context) {
                 function updateUser() {
                     return new Promise(
@@ -252,9 +292,11 @@ const resolvers = {
                         }
                     )
                 }
+
                 const data = await updateUser();
                 return data[1];
             },
+
             async updateDebt(root, {debtId, title, description, amount}, context) {
                 function update() {
                     return new Promise(
