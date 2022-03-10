@@ -297,15 +297,19 @@ const resolvers = {
                             );
 
                         }
-                    ).catch((e)=>{
-                        throw  MyUtangError(e.message,'ConstraintError');
+                    ).catch((e) => {
+                        throw  MyUtangError(e.message, 'ConstraintError');
                     })
                 }
 
 
-                const data = await updateUser();
-                return data[1];
+                try {
+                    const data = await updateUser();
+                    return data[1];
 
+                } catch (e) {
+                    throw  MyUtangError(e.message, 'ConstraintError');
+                }
             },
 
             async updateDebt(root, {debtId, debtorId, title, description, amount}, context) {
