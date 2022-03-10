@@ -280,34 +280,36 @@ const resolvers = {
                 function updateUser() {
                     return new Promise(
                         (resolve, reject) => {
-                            try {
-                                User.update(
-                                    {
-                                        userName: userName,
-                                    }, {
-                                        where:
-                                            {
-                                                id: context.user.id,
-                                            },
-                                        returning: true,
-                                        plain: true
-                                    },
-                                ).then((result) => {
-                                        resolve(result);
-                                    }
-                                ).catch((e) => {
-                                    throw new MyUtangError(e.message, 'ConstraintError');
-                                });
-                            } catch (e) {
+                            User.update(
+                                {
+                                    userName: userName,
+                                }, {
+                                    where:
+                                        {
+                                            id: context.user.id,
+                                        },
+                                    returning: true,
+                                    plain: true
+                                },
+                            ).then((result) => {
+                                    resolve(result);
+                                }
+                            ).catch((e) => {
                                 throw new MyUtangError(e.message, 'ConstraintError');
-                            }
+                            });
                         },
                     )
                 }
-                const data = await updateUser().catch((e)=>{
+
+                try {
+
+                    const data = await updateUser().catch((e) => {
+                        throw new MyUtangError(e.message, 'ConstraintError');
+                    });
+                    return data[1];
+                } catch (e) {
                     throw new MyUtangError(e.message, 'ConstraintError');
-                });
-                return data[1];
+                }
             },
 
             async updateDebt(root, {debtId, debtorId, title, description, amount}, context) {
