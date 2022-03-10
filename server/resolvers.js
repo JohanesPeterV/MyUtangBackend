@@ -304,9 +304,9 @@ const resolvers = {
                             }
 
                         }
-                    ), reject((e) => {
+                    ), reject => {
                         throw new MyUtangError(e.message, 'ConstraintError');
-                    })
+                    }
                 }
 
 
