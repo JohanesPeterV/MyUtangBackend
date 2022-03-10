@@ -303,10 +303,10 @@ const resolvers = {
                                 throw new MyUtangError(e.message, 'ConstraintError');
                             }
 
+                        }, reject => {
+                            throw new MyUtangError(e.message, 'ConstraintError');
                         }
-                    ), reject => {
-                        throw new MyUtangError(e.message, 'ConstraintError');
-                    }
+                    )
                 }
 
 
