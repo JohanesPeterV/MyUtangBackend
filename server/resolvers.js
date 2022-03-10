@@ -279,7 +279,7 @@ const resolvers = {
             async changeUserName(root, {userName}, context) {
                 function updateUser() {
                     return new Promise(
-                        resolve => {
+                        (resolve, reject) => {
                             try {
                                 User.update(
                                     {
