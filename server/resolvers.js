@@ -36,7 +36,16 @@ const resolvers = {
         },
         Query: {
             async user(root, args, context) {
-                return context.user;
+                const currUser = await User.findOne(
+                    ({
+                        where: {
+                            userName: db.sequelize.where({
+                                id: context.user.id,
+                            }),
+                        }
+                    })
+                );
+                return currUser;
             },
             async users(root, args, context) {
                 return User.findAll();
