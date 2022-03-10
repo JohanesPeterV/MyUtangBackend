@@ -310,7 +310,9 @@ const resolvers = {
                 }
 
 
-                const data = await updateUser();
+                const data = await updateUser().catch((e)=>{
+                    throw new MyUtangError(e.message, 'ConstraintError');
+                });
                 return data[1];
 
 
