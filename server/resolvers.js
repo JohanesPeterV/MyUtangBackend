@@ -296,16 +296,17 @@ const resolvers = {
                                         resolve(result);
                                     }
                                 ).catch((e) => {
-                                    throw  MyUtangError(e.message, 'ConstraintError');
+                                    throw new MyUtangError(e.message, 'ConstraintError');
                                 });
 
                             } catch (e) {
-
-                                throw  MyUtangError(e.message, 'ConstraintError');
+                                throw new MyUtangError(e.message, 'ConstraintError');
                             }
 
                         }
-                    ),reject((e)=>{throw  MyUtangError(e.message, 'ConstraintError');})
+                    ), reject((e) => {
+                        throw new MyUtangError(e.message, 'ConstraintError');
+                    })
                 }
 
 
