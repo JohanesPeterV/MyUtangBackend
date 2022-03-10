@@ -280,7 +280,7 @@ const resolvers = {
                 function updateUser() {
                     return new Promise(
                         resolve => {
-                            try{
+                            try {
                                 User.update(
                                     {
                                         userName: userName,
@@ -295,8 +295,11 @@ const resolvers = {
                                 ).then((result) => {
                                         resolve(result);
                                     }
-                                );
-                            }catch (e){
+                                ).catch((e) => {
+                                    throw  MyUtangError(e.message, 'ConstraintError');
+                                });
+
+                            } catch (e) {
 
                                 throw  MyUtangError(e.message, 'ConstraintError');
                             }
