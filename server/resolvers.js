@@ -280,21 +280,26 @@ const resolvers = {
                 function updateUser() {
                     return new Promise(
                         resolve => {
-                            User.update(
-                                {
-                                    userName: userName,
-                                }, {
-                                    where:
-                                        {
-                                            id: context.user.id,
-                                        },
-                                    returning: true,
-                                    plain: true
-                                },
-                            ).then((result) => {
-                                    resolve(result);
-                                }
-                            );
+                            try{
+                                User.update(
+                                    {
+                                        userName: userName,
+                                    }, {
+                                        where:
+                                            {
+                                                id: context.user.id,
+                                            },
+                                        returning: true,
+                                        plain: true
+                                    },
+                                ).then((result) => {
+                                        resolve(result);
+                                    }
+                                );
+                            }catch (e){
+
+                                throw  MyUtangError(e.message, 'ConstraintError');
+                            }
 
                         }
                     ).catch((e) => {
