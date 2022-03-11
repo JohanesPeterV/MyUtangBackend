@@ -317,7 +317,7 @@ const resolvers = {
                     return new Promise(
                         resolve => {
                             Debt.update({
-                                    debtorId: debtorId,
+                                    debtor: debtorId,
                                     title: title,
                                     description: description,
                                     amount: amount
