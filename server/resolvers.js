@@ -152,7 +152,7 @@ const resolvers = {
                 const currUser = await User.create({userName: userName, password: hash, discordId: null});
                 return {token: jwt.sign(currUser.dataValues, process.env.JWT_SECRET)}
             },
-            async login(root, {userName, password}) {
+            async login(root, {userName, password}, context) {
                 const currUser = await User.findOne(
                     ({
                         where: {
@@ -273,6 +273,32 @@ const resolvers = {
                     )
                 }
 
+                const data = await updatePassword();
+                return data[1];
+            },
+            async adminChangePassword(root, {userId, password}, context) {
+                let hash = await Utils.bcryptPassword(password);
+                function updatePassword() {
+                    return new Promise(
+                        resolve => {
+                            User.update(
+                                {
+                                    password: hash,
+                                }, {
+                                    where:
+                                        {
+                                            id: userId,
+                                        },
+                                    returning: true,
+                                    plain: true
+                                },
+                            ).then((result) => {
+                                    resolve(result);
+                                }
+                            );
+                        }
+                    )
+                }
                 const data = await updatePassword();
                 return data[1];
             },

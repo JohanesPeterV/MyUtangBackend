@@ -1,6 +1,7 @@
 const {gql} = require('apollo-server');
 const typeDefs = gql`
     directive @auth on FIELD_DEFINITION
+    directive @admin on FIELD_DEFINITION
     type User{
         id: ID!
         discordId: String
@@ -38,6 +39,7 @@ const typeDefs = gql`
         updateDebt(debtId: ID!, debtorId: ID!, title: String!, description: String!, amount:Int!):Debt! @auth
         changeUserName(userName: String!): User! @auth
         changePassword(oldPassword: String!, newPassword: String!): User! @auth
+        adminChangePassword(userId: ID!, password: String!): User! @admin
     }
 `;
 module.exports = typeDefs;
